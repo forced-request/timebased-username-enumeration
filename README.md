@@ -4,11 +4,14 @@ To determine whether a site is vulnerable we require a valid username. Leveragin
 
 Leveraging a similar technique, we can attempt to exploit the vulnerability. 
 
-== Usage
-```ruby enumerate.rb -x "http://google.com" -d "sessions[username]=PARAM&sessions[password]=a" --validuser "realemail@example.com" -c 10 --method POST --margin 100 --input-file "/Users/John/dictionary-file"```
+==Usage
+```
+ruby enumerate.rb -x "http://google.com" -d "sessions[username]=PARAM&sessions[password]=a" --validuser "realemail@example.com" -c 10 --method POST --margin 100 --input-file "/Users/John/dictionary-file"
+```
 
 
-```Usage: enumerate.rb [options]
+```
+Usage: enumerate.rb [options]
     -u, --validuser [USER]           Valid username for comparison
     -f, --input-file [FILEPATH]      Path to dictionary filecontaining usernames
     -c, --request-count [COUNT]      Number of requests to send beforemaking a decision. 
@@ -18,9 +21,9 @@ Leveraging a similar technique, we can attempt to exploit the vulnerability.
         --margin [MARGIN]            Time margin for determining successful exploitation.
 ```
 
-== Todo
+==Todo
 * **Support SSL**: This currently doesn't work.
 * **Default Options**: Default options currently aren't available.
 
-== Contact
+==Contact
 Feel free to contact me with any questions, john.m.poulin@gmail.com
