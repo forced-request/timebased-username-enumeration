@@ -3,10 +3,11 @@ class Options
   attr_reader :valid_username,
               :request_count,
               :method,
-              :margin,
               :input_file,
               :query_data,
               :uri
+
+  attr_accessor :margin
 
   # Parse arguments provided as a HASH
   def parse(args)

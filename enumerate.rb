@@ -63,7 +63,19 @@ print "Would you like to attempt to exploit #{opts.uri} (y/n)?"
 answer = gets.chomp
 
 if answer.downcase == "y"
+  print "Before we continue please enter new value for margin (#{opts.margin}ms): "
+  margin = gets.chomp
+
+  unless margin.nil? || margin == ""
+    opts.margin = margin.to_i
+  end
+
+  attack = Attack.new(EXPLOIT, opts)
 	puts "Attempting to discover user accounts"
 	attack.exploit
+
+  if attack.discovered_accounts.count == 0
+    puts "No accounts have been discovered"
+  end
 end
  
