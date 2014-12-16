@@ -9,6 +9,11 @@ class Request
 	end
 
 	def execute()
+	# Let's see if we're using ssl
+	if @opts.uri.match(/(https:\/\/)/)
+		use_ssl = true
+	end
+
 	# Find username parameter and replace
 	data = replace_username(@opts.query_data, @username)
 	uri = @opts.uri
@@ -19,14 +24,33 @@ class Request
 	 	data = Hash[URI::decode_www_form(tmp_uri.query)]
 
 	 	uri = URI.parse(uri)
+	 	http = Net::HTTP.new(uri.host, uri.port)
+
+	 	if use_ssl
+			http.use_ssl = true
+			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+		end
+
+		request = Net::HTTP::Post.new(uri.request_uri)
+		request.set_form_data(data)
+
 	 	start_time = Time.now
-	 	response = Net::HTTP.post_form(uri, data)
+	 	response = http.request(request)
 	 	end_time = Time.now
 	 else
 	 	uri = @opts.uri + "/?" + data
 	 	uri = URI(uri)
+
+	 	http = Net::HTTP.new(uri.host, uri.port)
+
+	 	if use_ssl
+			http.use_ssl = true
+			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+		end
+		request = Net::HTTP::Get.new(uri.request_uri)
+
 	 	start_time = Time.now
-	 	response = Net::HTTP.get(uri)
+	 	response = http.request(request)
 	 	end_time = Time.now
 	 end
 	 { :response_obj => response, :response_time => get_elapsed_ms(start_time, end_time)}
