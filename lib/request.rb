@@ -14,6 +14,12 @@ class Request
 		use_ssl = true
 	end
 
+	# Use cookies if we have them
+	cookies = ""
+	if @opts.cookies
+		cookies = @opts.cookies
+	end
+
 	# Find username parameter and replace
 	data = replace_username(@opts.query_data, @username)
 	uri = @opts.uri
@@ -24,7 +30,7 @@ class Request
 	 	data = Hash[URI::decode_www_form(tmp_uri.query)]
 
 	 	uri = URI.parse(uri)
-	 	http = Net::HTTP.new(uri.host, uri.port)
+	 	http = Net::HTTP.new(uri.host, uri.port, @opts.paddr, @opts.pport)
 
 	 	if use_ssl
 			http.use_ssl = true
@@ -33,6 +39,7 @@ class Request
 
 		request = Net::HTTP::Post.new(uri.request_uri)
 		request.set_form_data(data)
+		request['Cookie'] = cookies
 
 	 	start_time = Time.now
 	 	response = http.request(request)
@@ -48,6 +55,7 @@ class Request
 			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 		end
 		request = Net::HTTP::Get.new(uri.request_uri)
+		request['Cookie'] = cookies
 
 	 	start_time = Time.now
 	 	response = http.request(request)

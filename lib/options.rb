@@ -5,7 +5,10 @@ class Options
               :method,
               :input_file,
               :query_data,
-              :uri
+              :uri,
+              :cookies,
+              :paddr,
+              :pport
 
   attr_accessor :margin
 
@@ -44,6 +47,18 @@ class Options
 
       opts.on("--margin [MARGIN]", "Time margin for determining successful exploitation (Defaults to 50ms)") do |margin|
         @margin = margin
+      end
+
+      opts.on("--cookies [COOKIES]", "HTTP Cookies to use in request") do |cookies|
+        @cookies = cookies
+      end
+
+      opts.on("--proxy-address [PADDR]", "Proxy Address") do |proxy_addr|
+        @paddr = proxy_addr
+      end
+
+      opts.on("--proxy-port [PPORT]", "Proxy Port") do |proxy_port|
+        @pport = proxy_port
       end
 
     end.parse!
