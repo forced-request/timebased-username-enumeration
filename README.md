@@ -14,15 +14,17 @@ ruby enumerate.rb -x "http://google.com" -d "sessions[username]=PARAM&sessions[p
 Usage: enumerate.rb [options]
     -u, --validuser [USER]           Valid username for comparison
     -f, --input-file [FILEPATH]      Path to dictionary filecontaining usernames
-    -c, --request-count [COUNT]      Number of requests to send beforemaking a decision. 
+    -c, --request-count [COUNT]      Number of requests to send beforemaking a decision. Defaults to 10
     -d, --query-data [DATA]          HTTP data to send
     -x, --uri [URI]                  Request URI
         --method [METHOD]            HTTP request method
-        --margin [MARGIN]            Time margin for determining successful exploitation.
+        --margin [MARGIN]            Time margin for determining successful exploitation (Defaults to 50ms)
+        --cookies [COOKIES]          HTTP Cookies to use in request
+        --proxy-address [PADDR]      Proxy Address
+        --proxy-port [PPORT]         Proxy Port
 ```
 
 # Todo
-* **Support SSL**: This currently doesn't work.
 * **Default Options**: Default options currently aren't available.
 
 # Contact
