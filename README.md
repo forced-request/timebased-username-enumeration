@@ -1,4 +1,4 @@
-This script is largely a PoC for demonstrating the practability of time-based username enumeration in certain circumstances. 
+This script is largely a PoC for demonstrating the practicality of time-based username enumeration in certain circumstances. 
 
 To determine whether a site is vulnerable we require a valid username. Leveraging the known valid username we send a specified number of requests to the desired URI, measuring the response time and computing the average. We do the same for a known invalid username. We then compare the average response times. If there's a distinct difference in the response times (given an acceptable margin), the site may be vulnerable.
 
